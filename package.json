@@ -1,0 +1,93 @@
+{
+  "name": "mugen",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MUGEN (無限) — Gamified Monthly Habit Tracker & Analytics",
+  "author": "MUGEN Team",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "electron:dev": "npm run build && electron .",
+    "electron:build": "npm run build && electron-builder --win",
+    "electron:build-portable": "npm run build && electron-builder --win portable",
+    "cap:init-android": "npx cap add android",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:open-android": "npx cap open android",
+    "cap:run-android": "npx cap run android",
+    "cap:build-android": "npm run build && npx cap sync android",
+    "build:all": "npm run build && echo 'Web build complete. Run electron:build or cap:build-android next.'"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "lucide-react": "^1.48.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/ios": "^8.5.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "autoprefixer": "^10.6.1",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
+    "oxlint": "^1.81.0",
+    "png-to-ico": "^3.0.2",
+    "postcss": "^8.5.28",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  },
+  "build": {
+    "appId": "com.mugen.habittracker",
+    "productName": "MUGEN",
+    "copyright": "Copyright © 2026 MUGEN",
+    "directories": {
+      "output": "release",
+      "buildResources": "build-resources"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "!node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build-resources/icon.ico",
+      "artifactName": "MUGEN-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MUGEN",
+      "installerIcon": "build-resources/icon.ico",
+      "uninstallerIcon": "build-resources/icon.ico",
+      "installerHeaderIcon": "build-resources/icon.ico"
+    },
+    "portable": {
+      "artifactName": "MUGEN-Portable-${version}.${ext}"
+    }
+  }
+}
